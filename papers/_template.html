@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- 指引：這是論文頁範本。新增論文時複製本檔，依 AGENTS.md §6 填寫，完成後刪除所有「指引」註解並取代所有 {{...}}。 -->
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{SHORT_TITLE}}｜論文筆記</title>
+  <meta name="description" content="{{TLDR}}">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="../index.html">論文筆記</a>
+      <nav class="site-nav">
+        <a href="../index.html">論文列表</a>
+        <a href="../tags.html">標籤索引</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 指引：SHORT_TITLE = 方法名稱或標題前半段，例如「Chain-of-Thought」「Structured CoT」 -->
+    <nav class="breadcrumb"><a href="../index.html">論文列表</a> / {{SHORT_TITLE}}</nav>
+
+    <header class="paper-header">
+      <p class="paper-venue">{{VENUE_SHORT}} · {{YEAR}}</p>
+      <h1>{{TITLE}}</h1>
+      <p class="paper-title-zh">{{TITLE_ZH}}</p>
+      <dl class="meta">
+        <dt>作者</dt>
+        <dd>{{AUTHORS}}</dd>
+        <dt>發表</dt>
+        <dd>{{VENUE_FULL}}</dd>
+        <dt>連結</dt>
+        <!-- 指引：有 DOI 用 https://doi.org/…；只有 arXiv 用 https://arxiv.org/abs/…；都沒有填「待補」並移除 <a> -->
+        <dd><a href="{{URL}}">{{URL_LABEL}}</a></dd>
+        <dt>版本</dt>
+        <!-- 指引：例如「arXiv v3」或「出版版本」，所有頁碼都以這份 PDF 為準，見 AGENTS.md §6.1 -->
+        <dd>{{VERSION}}</dd>
+        <dt>標籤</dt>
+        <!-- 指引：2～5 個，順序依 AGENTS.md §8.1 表格 -->
+        <dd>
+          <a class="tag" href="../tags.html#tag-{{TAG_SLUG}}">{{TAG_NAME}}</a>
+        </dd>
+        <dt>閱讀日期</dt>
+        <dd><time datetime="{{READ_DATE}}">{{READ_DATE}}</time></dd>
+        <dt>狀態</dt>
+        <dd><span class="status status-draft">AI 初稿</span></dd>
+      </dl>
+    </header>
+
+    <section id="tldr" class="tldr">
+      <h2>一句話總結</h2>
+      <!-- 指引：40 個中文字以內，「用什麼方法解決什麼問題」，不附頁碼 -->
+      <p>{{TLDR}}</p>
+    </section>
+
+    <section id="problem">
+      <h2>研究問題</h2>
+      <!-- 指引：1～2 段：背景 → 現有方法的不足 → 本文要解決的問題 -->
+      <p>{{PROBLEM}} <span class="cite">p.{{N}}</span></p>
+    </section>
+
+    <section id="method">
+      <h2>方法</h2>
+      <!-- 指引：3～5 點，每點 1～2 句，每點都附頁碼 -->
+      <ol>
+        <li>{{METHOD_POINT}} <span class="cite">p.{{N}}</span></li>
+      </ol>
+    </section>
+
+    <section id="results">
+      <h2>主要結果</h2>
+      <!-- 指引：3～5 點，要有原始數據、比較對象和頁碼；需要時可以加一個 <table class="data-table"> -->
+      <ul>
+        <li>{{RESULT_POINT}} <span class="cite">p.{{N}}</span></li>
+      </ul>
+    </section>
+
+    <section id="contributions">
+      <h2>貢獻</h2>
+      <!-- 指引：2～4 點，作者宣稱的貢獻 -->
+      <ul>
+        <li>{{CONTRIBUTION}} <span class="cite">p.{{N}}</span></li>
+      </ul>
+    </section>
+
+    <section id="limitations">
+      <h2>限制</h2>
+      <!-- 指引：只寫作者自己承認的限制；沒有寫的話就寫「論文未明確討論限制」 -->
+      <ul>
+        <li>{{LIMITATION}} <span class="cite">p.{{N}}</span></li>
+      </ul>
+    </section>
+
+    <section id="glossary">
+      <h2>名詞解釋</h2>
+      <!-- 指引：3～6 個術語，dt 寫成「中文（English）」，dd 寫 1～2 句 -->
+      <dl class="glossary">
+        <dt>{{TERM}}</dt>
+        <dd>{{DEFINITION}}</dd>
+      </dl>
+    </section>
+
+    <section id="related">
+      <h2>相關論文</h2>
+      <!-- 指引：只連本站論文頁，並用一句話說明關係；沒有的話寫 <p class="muted">本站目前尚無相關論文。</p> -->
+      <ul class="related-list">
+        <li><a href="{{RELATED_FILE}}">{{RELATED_TITLE}}</a>：{{RELATION}}</li>
+      </ul>
+    </section>
+
+    <section id="my-notes" class="my-notes">
+      <h2>我的心得</h2>
+      <!-- 指引：AI 禁止撰寫這個區塊，只保留下面這行 -->
+      <p class="pending">（待本人填寫）</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      本頁為個人閱讀筆記，由 AI 協助整理，內容以原論文為準。頁碼標示 <span class="cite">p.N</span> 為「版本」欄所寫那份 PDF 的頁數。
+    </div>
+  </footer>
+</body>
+</html>

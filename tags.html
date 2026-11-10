@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>標籤索引｜論文筆記</title>
+  <meta name="description" content="依主題標籤瀏覽論文筆記。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="index.html">論文筆記</a>
+      <nav class="site-nav">
+        <a href="index.html">論文列表</a>
+        <a href="tags.html" aria-current="page">標籤索引</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>標籤索引</h1>
+      <p>依主題瀏覽論文。同一個標籤底下的論文依發表年份由舊到新排列，可以看出一個概念的發展。</p>
+      <nav class="tag-nav">
+        <a class="tag" href="#tag-llm">LLM</a>
+        <a class="tag" href="#tag-prompting">Prompting</a>
+        <a class="tag" href="#tag-code-generation">Code Generation</a>
+        <a class="tag" href="#tag-benchmark">Benchmark</a>
+        <a class="tag" href="#tag-quantum-computing">Quantum Computing</a>
+      </nav>
+    </section>
+
+    <!-- 每個標籤一個 section，格式見 AGENTS.md §9.2。順序依 AGENTS.md §8.1 表格。 -->
+
+    <section class="tag-section" id="tag-llm">
+      <h2>LLM <span class="count">3</span></h2>
+      <p class="tag-desc">以大型語言模型為主要研究對象或工具。</p>
+      <ul>
+        <!-- TAG:llm:START -->
+        <li><a href="papers/2022-chain-of-thought-prompting.html">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a> <span class="muted">（2022）</span></li>
+        <li><a href="papers/2023-structured-cot-code-generation.html">Structured Chain-of-Thought Prompting for Code Generation</a> <span class="muted">（2023）</span></li>
+        <li><a href="papers/2024-qiskit-humaneval.html">Qiskit HumanEval: An Evaluation Benchmark For Quantum Code Generative Models</a> <span class="muted">（2024）</span></li>
+        <!-- TAG:llm:END -->
+      </ul>
+    </section>
+
+    <section class="tag-section" id="tag-prompting">
+      <h2>Prompting <span class="count">2</span></h2>
+      <p class="tag-desc">提示詞設計、Chain-of-Thought 等技術。</p>
+      <ul>
+        <!-- TAG:prompting:START -->
+        <li><a href="papers/2022-chain-of-thought-prompting.html">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a> <span class="muted">（2022）</span></li>
+        <li><a href="papers/2023-structured-cot-code-generation.html">Structured Chain-of-Thought Prompting for Code Generation</a> <span class="muted">（2023）</span></li>
+        <!-- TAG:prompting:END -->
+      </ul>
+    </section>
+
+    <section class="tag-section" id="tag-code-generation">
+      <h2>Code Generation <span class="count">2</span></h2>
+      <p class="tag-desc">自動產生程式碼。</p>
+      <ul>
+        <!-- TAG:code-generation:START -->
+        <li><a href="papers/2023-structured-cot-code-generation.html">Structured Chain-of-Thought Prompting for Code Generation</a> <span class="muted">（2023）</span></li>
+        <li><a href="papers/2024-qiskit-humaneval.html">Qiskit HumanEval: An Evaluation Benchmark For Quantum Code Generative Models</a> <span class="muted">（2024）</span></li>
+        <!-- TAG:code-generation:END -->
+      </ul>
+    </section>
+
+    <section class="tag-section" id="tag-benchmark">
+      <h2>Benchmark <span class="count">1</span></h2>
+      <p class="tag-desc">提出評估用的資料集或基準測試。</p>
+      <ul>
+        <!-- TAG:benchmark:START -->
+        <li><a href="papers/2024-qiskit-humaneval.html">Qiskit HumanEval: An Evaluation Benchmark For Quantum Code Generative Models</a> <span class="muted">（2024）</span></li>
+        <!-- TAG:benchmark:END -->
+      </ul>
+    </section>
+
+    <section class="tag-section" id="tag-quantum-computing">
+      <h2>Quantum Computing <span class="count">1</span></h2>
+      <p class="tag-desc">量子計算平台或量子軟體。</p>
+      <ul>
+        <!-- TAG:quantum-computing:START -->
+        <li><a href="papers/2024-qiskit-humaneval.html">Qiskit HumanEval: An Evaluation Benchmark For Quantum Code Generative Models</a> <span class="muted">（2024）</span></li>
+        <!-- TAG:quantum-computing:END -->
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      個人閱讀筆記，內容以原論文為準。
+    </div>
+  </footer>
+</body>
+</html>

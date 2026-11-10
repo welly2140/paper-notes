@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qiskit HumanEval｜論文筆記</title>
+  <meta name="description" content="用 101 題附單元測試的 Qiskit 任務，評估 LLM 寫量子程式的能力。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="../index.html">論文筆記</a>
+      <nav class="site-nav">
+        <a href="../index.html">論文列表</a>
+        <a href="../tags.html">標籤索引</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb"><a href="../index.html">論文列表</a> / Qiskit HumanEval</nav>
+
+    <header class="paper-header">
+      <p class="paper-venue">arXiv · 2024</p>
+      <h1>Qiskit HumanEval: An Evaluation Benchmark For Quantum Code Generative Models</h1>
+      <p class="paper-title-zh">Qiskit HumanEval：評估量子程式碼生成模型的基準測試</p>
+      <dl class="meta">
+        <dt>作者</dt>
+        <dd>Sanjay Vishwakarma、Francis Harkins、Siddharth Golecha 等（IBM Research、IBM Quantum）</dd>
+        <dt>發表</dt>
+        <dd>待補（PDF 上沒有寫正式發表處）</dd>
+        <dt>連結</dt>
+        <dd><a href="https://arxiv.org/abs/2406.14712">arXiv:2406.14712</a></dd>
+        <dt>版本</dt>
+        <dd>arXiv v1</dd>
+        <dt>標籤</dt>
+        <dd>
+          <a class="tag" href="../tags.html#tag-llm">LLM</a>
+          <a class="tag" href="../tags.html#tag-code-generation">Code Generation</a>
+          <a class="tag" href="../tags.html#tag-benchmark">Benchmark</a>
+          <a class="tag" href="../tags.html#tag-quantum-computing">Quantum Computing</a>
+        </dd>
+        <dt>閱讀日期</dt>
+        <dd><time datetime="2026-11-10">2026-11-10</time></dd>
+        <dt>狀態</dt>
+        <dd><span class="status status-reviewed">已校對</span></dd>
+      </dl>
+    </header>
+
+    <section id="tldr" class="tldr">
+      <h2>一句話總結</h2>
+      <p>用 101 題附單元測試的 Qiskit 任務，評估 LLM 寫量子程式的能力。</p>
+    </section>
+
+    <section id="problem">
+      <h2>研究問題</h2>
+      <p>寫量子程式同時需要量子資訊和軟體工程的專業知識，所以越來越多人想用生成式 AI 來輔助 <span class="cite">p.1</span>。Qiskit 是 IBM 的開源量子計算框架，可以設計、模擬和執行量子電路 <span class="cite">p.1</span>。</p>
+      <p>評估程式碼生成模型時，常用的是 HumanEval、MBPP 這類附有單元測試的基準測試 <span class="cite">p.2</span>，但作者指出，雖然已經有研究把 LLM 用在量子計算上，卻還沒有研究評估 LLM 產生的量子程式表現如何 <span class="cite">p.2</span>。所以本文仿照 HumanEval，做了一個專門給 Qiskit 的版本 <span class="cite">p.2</span>。</p>
+    </section>
+
+    <section id="method">
+      <h2>方法</h2>
+      <ol>
+        <li>由 Qiskit 推廣者、社群成員、IBM Quantum 文件團隊和量子軟體開發者組成專家小組，每人出題後互相審查，直到大家都認為題目正確、可行、清楚、可重現 <span class="cite">p.2</span>。</li>
+        <li>資料集共 101 題，分成 8 類，例如量子電路生成 28 題、模擬與執行 19 題、閘操作 17 題、演算法實作 14 題。題目都是從頭撰寫，不是從教學或論文中直接拿來的 <span class="cite">p.2</span>。</li>
+        <li>每題包含題目編號、提示、標準解答、單元測試、進入點函式和難度。難度分為 basic 54 題、intermediate 45 題、difficult 2 題 <span class="cite">p.3</span> <span class="cite">p.4</span>。</li>
+        <li>評估時同時考慮模擬器（Qiskit Aer）和真實量子硬體（透過 Qiskit Runtime 連到 IBM Quantum）上的執行 <span class="cite">p.4</span> <span class="cite">p.5</span>。</li>
+        <li>除了測試現有的開源程式碼模型，作者也用 Qiskit 程式碼和 notebook（約 5,000 萬 token）延伸預訓練 granite-8b-code-base，再做指令微調，得到自己的 Qiskit 模型 granite-8b-code-qk <span class="cite">p.6</span>。</li>
+      </ol>
+    </section>
+
+    <section id="results">
+      <h2>主要結果</h2>
+      <ul>
+        <li>作者的 granite-8b-code-qk 在 Qiskit HumanEval 上 Pass@1 為 46.53%，是所有受測模型中最高的；比微調前的 granite-8b-code-base（28.71%）多 17.8 分 <span class="cite">p.7</span>。</li>
+        <li>一般程式能力和量子程式能力不一定一致：CodeLlama-34B 在 HumanEval 最高（52.43%），在 Qiskit HumanEval 卻只有 26.73% <span class="cite">p.7</span>。</li>
+        <li>依難度來看，granite-8b-code-qk 在 basic 解出 32/54 題、intermediate 15/45 題，都是最多的 <span class="cite">p.7</span>。</li>
+        <li>所有模型都沒有解出任何一題 difficult 題目 <span class="cite">p.7</span>。</li>
+        <li>不同模型在各難度上的表現趨勢相似，作者的模型雖然分數最高，但行為和 DeepSeek-Coder-33B 等模型差不多 <span class="cite">p.7</span>。</li>
+      </ul>
+      <p class="muted">HumanEval（HE）和 Qiskit HumanEval（QHE）的 Pass@1，使用 greedy decoding <span class="cite">p.7</span></p>
+      <table class="data-table">
+        <thead>
+          <tr><th>模型</th><th>HE</th><th>QHE</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>CodeLlama-34B-Python</td><td>52.43%</td><td>26.73%</td></tr>
+          <tr><td>DeepSeek-Coder-33B-Base</td><td>49.39%</td><td>39.6%</td></tr>
+          <tr><td>StarCoder2-15B</td><td>45.12%</td><td>37.62%</td></tr>
+          <tr><td>CodeGemma-7B</td><td>42.68%</td><td>24.75%</td></tr>
+          <tr><td>Granite-8B-Code-Base</td><td>39.02%</td><td>28.71%</td></tr>
+          <tr><td>Granite-8B-Code-QK</td><td>38.41%</td><td>46.53%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contributions">
+      <h2>貢獻</h2>
+      <ul>
+        <li>提出 Qiskit HumanEval，作者認為這是第一個專門評估 LLM 產生量子程式能力的資料集 <span class="cite">p.2</span> <span class="cite">p.7</span>。</li>
+        <li>系統性評估多個開源程式碼模型在量子程式碼生成上的表現 <span class="cite">p.1</span> <span class="cite">p.7</span>。</li>
+        <li>提出針對 Qiskit 微調的模型 granite-8b-code-qk，並展示延伸預訓練加指令微調的效果 <span class="cite">p.6</span> <span class="cite">p.7</span>。</li>
+      </ul>
+      <aside class="ai-note"><strong>AI 補充：</strong>論文沒有獨立列出貢獻清單，以上三點是根據摘要、第 II 節和第 V 節整理的。</aside>
+    </section>
+
+    <section id="limitations">
+      <h2>限制</h2>
+      <p class="muted">論文沒有獨立的限制章節，以下是 Discussion 中作者提到需要改進的地方。</p>
+      <ul>
+        <li>資料集目前只相容 Qiskit 1.0 以上，Qiskit 改版後需要持續更新題目 <span class="cite">p.7</span>。</li>
+        <li>目前只評估程式碼生成，還沒有涵蓋程式碼解釋、修復或翻譯等任務 <span class="cite">p.7</span>。</li>
+        <li>寫論文時資料集只有 101 題，完整版本預計之後才公開 <span class="cite">p.7</span>。</li>
+      </ul>
+    </section>
+
+    <section id="glossary">
+      <h2>名詞解釋</h2>
+      <dl class="glossary">
+        <dt>Qiskit</dt>
+        <dd>IBM 開發的開源量子計算框架，用 Python 撰寫，可以設計、模擬並在量子電腦上執行量子電路。</dd>
+        <dt>基準測試（Benchmark）</dt>
+        <dd>一組固定的題目和評分方式，用來公平比較不同模型的能力。</dd>
+        <dt>標準解答（Canonical Solution）</dt>
+        <dd>每題附上的參考答案，保證能通過該題所有測試。</dd>
+        <dt>Qiskit Aer</dt>
+        <dd>Qiskit 的模擬器模組，可以在一般電腦上模擬量子電路，也能加入雜訊模型模擬真實硬體。</dd>
+        <dt>貝爾態（Bell State）</dt>
+        <dd>兩個量子位元最基本的糾纏態，常被當作量子程式的入門範例。本資料集最簡單的題目之一就是建立貝爾態。</dd>
+      </dl>
+    </section>
+
+    <section id="related">
+      <h2>相關論文</h2>
+      <ul class="related-list">
+        <li><a href="2023-structured-cot-code-generation.html">Structured Chain-of-Thought Prompting for Code Generation</a>：SCoT 用原版 HumanEval 評估提示方法，本文則把 HumanEval 改編成量子程式版本，兩者都用單元測試和 Pass@k 來判斷模型寫出的程式是否正確。</li>
+      </ul>
+    </section>
+
+    <section id="my-notes" class="my-notes">
+      <h2>我的心得</h2>
+      <p>會寫一般程式不等於會寫量子程式；領域資料比模型大小更重要；之後可以把 SCoT 用在這個基準測試上。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      本頁為個人閱讀筆記，由 AI 協助整理，內容以原論文為準。頁碼標示 <span class="cite">p.N</span> 為「版本」欄所寫那份 PDF 的頁數。
+    </div>
+  </footer>
+</body>
+</html>

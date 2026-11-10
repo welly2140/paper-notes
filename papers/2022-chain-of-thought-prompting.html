@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chain-of-Thought｜論文筆記</title>
+  <meta name="description" content="在少樣本提示的範例中加入逐步推理過程，讓大型模型的推理能力大幅提升。">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="../index.html">論文筆記</a>
+      <nav class="site-nav">
+        <a href="../index.html">論文列表</a>
+        <a href="../tags.html">標籤索引</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="breadcrumb"><a href="../index.html">論文列表</a> / Chain-of-Thought</nav>
+
+    <header class="paper-header">
+      <p class="paper-venue">NeurIPS · 2022</p>
+      <h1>Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</h1>
+      <p class="paper-title-zh">思維鏈提示：引出大型語言模型的推理能力</p>
+      <dl class="meta">
+        <dt>作者</dt>
+        <dd>Jason Wei、Xuezhi Wang、Dale Schuurmans 等（Google Research, Brain Team）</dd>
+        <dt>發表</dt>
+        <dd>36th Conference on Neural Information Processing Systems (NeurIPS 2022)</dd>
+        <dt>連結</dt>
+        <dd><a href="https://arxiv.org/abs/2201.11903">arXiv:2201.11903</a></dd>
+        <dt>版本</dt>
+        <dd>arXiv v6</dd>
+        <dt>標籤</dt>
+        <dd>
+          <a class="tag" href="../tags.html#tag-llm">LLM</a>
+          <a class="tag" href="../tags.html#tag-prompting">Prompting</a>
+        </dd>
+        <dt>閱讀日期</dt>
+        <dd><time datetime="2026-11-10">2026-11-10</time></dd>
+        <dt>狀態</dt>
+        <dd><span class="status status-reviewed">已校對</span></dd>
+      </dl>
+    </header>
+
+    <section id="tldr" class="tldr">
+      <h2>一句話總結</h2>
+      <p>在少樣本提示的範例中加入逐步推理過程，讓大型模型的推理能力大幅提升。</p>
+    </section>
+
+    <section id="problem">
+      <h2>研究問題</h2>
+      <p>語言模型變大之後，很多任務的表現都會變好，但在算術、常識和符號推理這類需要多步思考的任務上，單純放大模型的效果有限 <span class="cite">p.2</span>。</p>
+      <p>當時有兩種做法：一是用「附帶推理過程的資料」來訓練或微調模型，但這種資料很貴，很難大量製作；二是 GPT-3 帶起的少樣本提示，只要給幾個「問題 → 答案」的範例就能用，可是在推理任務上表現差，而且模型變大也不太會進步 <span class="cite">p.2</span>。本文想結合兩者的優點：不訓練模型，只在提示的範例裡放進推理過程，看能不能讓模型學會一步一步推理 <span class="cite">p.2</span>。</p>
+    </section>
+
+    <section id="method">
+      <h2>方法</h2>
+      <ol>
+        <li>把少樣本提示的每個範例，從「輸入 → 輸出」改成「輸入 → 思維鏈 → 輸出」的三元組。思維鏈是一段用自然語言寫的中間推理步驟 <span class="cite">p.2</span> <span class="cite">p.3</span>。</li>
+        <li>作者手寫了 8 個附帶思維鏈的數學應用題範例，除了選擇題形式的 AQuA 改用 4 個範例，其餘數學資料集都共用這一組，而且沒有特別調整提示詞 <span class="cite">p.3</span> <span class="cite">p.4</span>。</li>
+        <li>在五個模型家族上比較標準提示和思維鏈提示：GPT-3、LaMDA、PaLM、UL2 20B、Codex，解碼方式用 greedy decoding <span class="cite">p.4</span>。</li>
+        <li>評估三類任務：算術推理（GSM8K 等 5 個資料集）<span class="cite">p.3</span>、常識推理（CSQA、StrategyQA 等 5 個）<span class="cite">p.7</span>、符號推理（末字母串接、擲硬幣）<span class="cite">p.8</span>。</li>
+        <li>用消融實驗排除其他解釋：只輸出方程式、只輸出和方程式等長的點號、先給答案再寫推理，看效果是否真的來自「用自然語言逐步推理」<span class="cite">p.5</span> <span class="cite">p.6</span>。</li>
+      </ol>
+    </section>
+
+    <section id="results">
+      <h2>主要結果</h2>
+      <ul>
+        <li>PaLM 540B 在 GSM8K 數學應用題上，解題率從標準提示的 17.9% 提升到思維鏈提示的 56.9% <span class="cite">p.21</span>，超過先前用微調 GPT-3 加驗證器的最佳結果 <span class="cite">p.1</span> <span class="cite">p.2</span>。</li>
+        <li>思維鏈是一種隨模型規模出現的能力：小模型用了反而沒有幫助，大約要到 100B 參數才有明顯效果。小模型會寫出通順但不合邏輯的推理過程 <span class="cite">p.4</span>。</li>
+        <li>題目越難，效果越明顯：GSM8K 上最大的 GPT 和 PaLM 表現提升一倍以上；只需要一步的簡單題目（MAWPS 的 SingleOp）則幾乎沒有提升，甚至變差 <span class="cite">p.5</span>。</li>
+        <li>三種消融變體在 GSM8K 上的表現都和標準提示差不多，代表效果不只是因為多算了幾步或喚起了知識，而是來自用自然語言寫出中間步驟 <span class="cite">p.5</span> <span class="cite">p.6</span>。</li>
+        <li>在常識推理上，PaLM 540B 在 StrategyQA 達到 75.6%（先前最佳 69.4%），在運動理解任務達到 95.4%（一般運動迷 84%），但 CSQA 幾乎沒有進步 <span class="cite">p.7</span>。符號推理上，思維鏈也幫助模型處理比範例更長的輸入 <span class="cite">p.8</span>。</li>
+      </ul>
+      <p class="muted">PaLM 540B 在五個算術資料集上的解題率（%）<span class="cite">p.21</span></p>
+      <table class="data-table">
+        <thead>
+          <tr><th>資料集</th><th>標準提示</th><th>思維鏈提示</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>GSM8K</td><td>17.9</td><td>56.9</td></tr>
+          <tr><td>SVAMP</td><td>69.4</td><td>79.0</td></tr>
+          <tr><td>ASDiv</td><td>72.1</td><td>73.9</td></tr>
+          <tr><td>AQuA</td><td>25.2</td><td>35.8</td></tr>
+          <tr><td>MAWPS</td><td>79.2</td><td>93.3</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="contributions">
+      <h2>貢獻</h2>
+      <ul>
+        <li>提出思維鏈提示：只要在提示範例中加入推理過程，就能引出大型模型的多步推理能力，整個過程完全不需要微調模型 <span class="cite">p.2</span> <span class="cite">p.9</span>。</li>
+        <li>在算術、常識、符號三類推理任務上驗證這個方法都有效，而且對不同的範例撰寫者、範例組合和模型都穩定 <span class="cite">p.8</span> <span class="cite">p.9</span>。</li>
+        <li>指出思維鏈推理是隨模型規模出現的能力，也說明標準提示只能看到大型模型能力的下限 <span class="cite">p.9</span>。</li>
+      </ul>
+      <aside class="ai-note"><strong>AI 補充：</strong>論文沒有獨立列出貢獻清單，以上三點是根據 Introduction 和 Discussion 的內容整理的。</aside>
+    </section>
+
+    <section id="limitations">
+      <h2>限制</h2>
+      <ul>
+        <li>思維鏈只是模仿人的思考過程，並不能回答模型是否真的在「推理」<span class="cite">p.9</span>。</li>
+        <li>少樣本情境下手寫推理過程的成本很低，但如果要拿來微調模型，標註成本可能會非常高 <span class="cite">p.9</span>。</li>
+        <li>不保證推理路徑正確，錯誤的推理也可能得出正確或錯誤的答案 <span class="cite">p.9</span>。</li>
+        <li>這個能力只在大模型上出現，實際部署成本高 <span class="cite">p.9</span>。</li>
+      </ul>
+    </section>
+
+    <section id="glossary">
+      <h2>名詞解釋</h2>
+      <dl class="glossary">
+        <dt>思維鏈（Chain of Thought, CoT）</dt>
+        <dd>從問題到答案之間的一連串中間推理步驟，用自然語言寫出來，像是寫出解題過程。</dd>
+        <dt>少樣本提示（Few-shot Prompting）</dt>
+        <dd>不重新訓練模型，只在輸入中放幾個示範例子，讓模型照著例子的形式回答新問題。</dd>
+        <dt>標準提示（Standard Prompting）</dt>
+        <dd>本文的比較基準，範例只有「問題 → 答案」，沒有推理過程。</dd>
+        <dt>湧現能力（Emergent Ability）</dt>
+        <dd>小模型上幾乎看不到、模型規模大到一定程度才突然出現的能力。</dd>
+        <dt>消融實驗（Ablation Study）</dt>
+        <dd>拿掉或替換方法中的某個部分，觀察效果變化，用來確認真正起作用的是哪個部分。</dd>
+        <dt>分布外（Out-of-Distribution, OOD）</dt>
+        <dd>測試資料和示範範例的形式不同。本文指的是測試題的步驟數比範例更多。</dd>
+      </dl>
+    </section>
+
+    <section id="related">
+      <h2>相關論文</h2>
+      <ul class="related-list">
+        <li><a href="2023-structured-cot-code-generation.html">Structured Chain-of-Thought Prompting for Code Generation</a>：把思維鏈用在程式碼生成上，改用程式結構來寫推理步驟，並以 CoT 作為主要比較對象。</li>
+      </ul>
+    </section>
+
+    <section id="my-notes" class="my-notes">
+      <h2>我的心得</h2>
+      <p>小模型寫出看起來通順、其實錯誤的推理過程；不用訓練模型，只改提示就有很大的提升。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      本頁為個人閱讀筆記，由 AI 協助整理，內容以原論文為準。頁碼標示 <span class="cite">p.N</span> 為「版本」欄所寫那份 PDF 的頁數。
+    </div>
+  </footer>
+</body>
+</html>

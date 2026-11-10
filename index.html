@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>論文筆記</title>
+  <meta name="description" content="個人論文閱讀筆記，每篇論文都用固定格式整理。">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container wide">
+      <a class="site-title" href="index.html">論文筆記</a>
+      <nav class="site-nav">
+        <a href="index.html" aria-current="page">論文列表</a>
+        <a href="tags.html">標籤索引</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container wide">
+    <section class="hero">
+      <h1>論文筆記</h1>
+      <p>這是我的論文閱讀筆記，讀完一篇就整理一篇。每篇筆記都用固定格式整理，可以快速看懂一篇論文在做什麼，也可以從標籤和相關論文看出論文之間的關聯。</p>
+      <span class="stats">已整理 <span id="paper-count">3</span> 篇</span>
+    </section>
+
+    <div class="table-wrap">
+      <table class="paper-table">
+        <thead>
+          <tr>
+            <th>閱讀日期</th>
+            <th>論文</th>
+            <th>年份</th>
+            <th>標籤</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- PAPERS:START（新論文放在最上面，依閱讀日期由新到舊。格式見 AGENTS.md §9.1） -->
+          <tr>
+            <td class="col-date"><time datetime="2026-11-10">2026-11-10</time></td>
+            <td class="col-title">
+              <a href="papers/2024-qiskit-humaneval.html">Qiskit HumanEval: An Evaluation Benchmark For Quantum Code Generative Models</a>
+              <p class="row-tldr">用 101 題附單元測試的 Qiskit 任務，評估 LLM 寫量子程式的能力。</p>
+            </td>
+            <td class="col-year">2024</td>
+            <td class="col-tags">
+              <a class="tag" href="tags.html#tag-llm">LLM</a>
+              <a class="tag" href="tags.html#tag-code-generation">Code Generation</a>
+              <a class="tag" href="tags.html#tag-benchmark">Benchmark</a>
+              <a class="tag" href="tags.html#tag-quantum-computing">Quantum Computing</a>
+            </td>
+            <td class="col-status"><span class="status status-reviewed">已校對</span></td>
+          </tr>
+          <tr>
+            <td class="col-date"><time datetime="2026-11-10">2026-11-10</time></td>
+            <td class="col-title">
+              <a href="papers/2023-structured-cot-code-generation.html">Structured Chain-of-Thought Prompting for Code Generation</a>
+              <p class="row-tldr">讓 LLM 先用循序、分支、迴圈結構寫出解題步驟，再依步驟產生程式碼。</p>
+            </td>
+            <td class="col-year">2023</td>
+            <td class="col-tags">
+              <a class="tag" href="tags.html#tag-llm">LLM</a>
+              <a class="tag" href="tags.html#tag-prompting">Prompting</a>
+              <a class="tag" href="tags.html#tag-code-generation">Code Generation</a>
+            </td>
+            <td class="col-status"><span class="status status-reviewed">已校對</span></td>
+          </tr>
+          <tr>
+            <td class="col-date"><time datetime="2026-11-10">2026-11-10</time></td>
+            <td class="col-title">
+              <a href="papers/2022-chain-of-thought-prompting.html">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a>
+              <p class="row-tldr">在少樣本提示的範例中加入逐步推理過程，讓大型模型的推理能力大幅提升。</p>
+            </td>
+            <td class="col-year">2022</td>
+            <td class="col-tags">
+              <a class="tag" href="tags.html#tag-llm">LLM</a>
+              <a class="tag" href="tags.html#tag-prompting">Prompting</a>
+            </td>
+            <td class="col-status"><span class="status status-reviewed">已校對</span></td>
+          </tr>
+          <!-- PAPERS:END -->
+        </tbody>
+      </table>
+    </div>
+
+    <section class="about">
+      <h2>這個網站怎麼運作</h2>
+      <ol>
+        <li>讀完一篇論文後，把 PDF 放進 <code>papers/inbox/</code>（PDF 不會上傳）。</li>
+        <li>請 AI 依照專案中的 <code>AGENTS.md</code> 規則整理，產生固定格式的筆記頁，並自動更新本頁和標籤索引。</li>
+        <li>每個重點都附上原文頁碼 <span class="cite">p.N</span>，AI 自己的補充會另外標示。</li>
+        <li>最後由我本人校對內容並寫下「我的心得」，狀態就會從 <span class="status status-draft">AI 初稿</span> 變成 <span class="status status-reviewed">已校對</span>。</li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container wide">
+      個人閱讀筆記，內容以原論文為準。本站不提供論文 PDF，請透過各頁的 DOI 或 arXiv 連結閱讀原文。
+    </div>
+  </footer>
+</body>
+</html>
