@@ -1,0 +1,4 @@
+# 論文 PDF 只留在本機，不上傳（版權）
+papers/inbox/*
+!papers/inbox/.gitkeep
+*.pdf
