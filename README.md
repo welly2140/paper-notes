@@ -4,6 +4,8 @@
 
 整理的工作大部分交給 AI。我在 AGENTS.md 裡寫好規則，包括每頁要有哪些區塊、檔案怎麼命名、標籤怎麼用，以及哪些事情 AI 不能做。這樣不管我用哪個 AI 工具、隔多久再回來加新論文，做出來的頁面格式都會一樣。
 
+URL: https://welly2140.github.io/paper-notes/
+
 ## 新增一篇論文的流程
 
 1. 把 PDF 放進 papers/inbox 資料夾。這個資料夾有寫在 .gitignore 裡，PDF 不會被傳上 GitHub。
